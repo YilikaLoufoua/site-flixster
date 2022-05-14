@@ -44,4 +44,10 @@ function init() {
     fetchMoviesNowPlaying();
 }
 
+function loadMoreMovies() {
+    currentApiPage++;
+    loadMoreBtn.disabled = true;
+    fetchMoviesNowPlaying();
+}
+
 init();
