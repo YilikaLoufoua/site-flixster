@@ -10,8 +10,13 @@
 <body>
     <header class="header">
         <div class="navbar">
-            <a class="header-title">🍿 Flixster</a>
-
+            <a href class="header-title">🍿 Flixster</a>
+            <div class="search-wrapper">
+                <form id="search-form">
+                    <input type="text" id="search-input" placeholder="Search Flixster" class="search" title="Search Movies">
+                    <button type="button" id="close-search-btn" class="hidden" onclick="closeSearch()"><span class="sr-only">Close</span></button>
+                </form>
+            </div>
         </div>
     </header>
     <main class="main-layout">
@@ -21,6 +26,10 @@
             <div class="load-more-movies-action">
                 <button id="load-more-movies-btn" onclick="loadMoreMovies()">Load more movies</button>
             </div>
+        </section>
+        <section id="search-section" class="section-layout hidden">
+            <h2>Search Results</h2>
+            <ul id="movie-search-results" class="movie-list"></ul>
         </section>
     </main>
     <script src="script.js"></script>

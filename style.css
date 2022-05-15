@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 body {
     font-family: 'DM Sans', sans-serif;
     margin: 0;
@@ -19,9 +23,11 @@ body {
 }
 
 .header-title {
-    margin: 0;
-    margin-right: 10px;
+    margin: 0px 20px;
     color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
     white-space: nowrap;
 }
 
