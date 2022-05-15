@@ -25,12 +25,12 @@ async function fetchMoviesNowPlaying() {
     }))
 
     displayMovies(movies, nowPlayingMoviesList);
-    loadMoreBtn.disabled = false;
+    loadMoreBtn.classList.remove('hidden');
 }
 
 function displayMovies(movies, htmlElement) {
     const moviesHTMLString = movies.map(movie => `
-        <li class="movie-card">
+        <li class="movie-card" onclick="selectMovie(${movie.id})" >
             <img class="movie-poster" src="${imageBaseUrl}/w342${movie.posterPath}" alt="${movie.title}" title="${movie.title}"/>
             <div class="movie-details">
                 <h3 class="movie-title">${movie.title}</h3>
@@ -56,12 +56,79 @@ async function searchMovies(searchQuery) {
     return movies;
 }
 
+async function selectMovie(id) {
+    var response = await fetch(`${apiBaseUrl}/movie/${id}?api_key=${apiKey}`);
+    var jsonResponse = await response.json();
+
+    const movie = {
+        id: id,
+        title: jsonResponse.title,
+        overview: jsonResponse.overview,
+        posterPath: jsonResponse.poster_path,
+        backdropPath: jsonResponse.backdrop_path,
+        releaseDate: jsonResponse.release_date,
+        status: jsonResponse.status,
+        runtime: jsonResponse.runtime,
+        genres: jsonResponse.genres,
+        voteAvg: jsonResponse.vote_average,
+    }
+    
+    // fetch movie trailer
+    response = await fetch(`${apiBaseUrl}/movie/${id}/videos?api_key=${apiKey}`);
+    jsonResponse = await response.json();
+    movie.trailerPath = jsonResponse.results[0].key;
+
+    displayMoviePopup(movie);
+}
+
+function displayMoviePopup(movie) {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+
+    const genres = movie.genres.slice(0, 3).map(genre => genre.name).join(', ');
+
+    popup.innerHTML = `
+        <button id="close-btn" onclick="closePopup()">Close</button>
+        <article class="movie-popup">
+            <img class="movie-backdrop" src="${imageBaseUrl}/w780${movie.backdropPath}" alt="${movie.title}" title="${movie.title}"/>
+            <section class="movie-details">
+                <div class="movie-image">
+                    <img class="movie-poster" src="${imageBaseUrl}/w342${movie.posterPath}" alt="${movie.title}" title="${movie.title}"/>
+                </div>
+                <div class="movie-info">
+                    <p class="movie-genres">${genres}</p>
+                    <h3 class="movie-title">${movie.title}</h3>
+                    <p class="movie-specs">${movie.runtime} min | ${movie.releaseDate}</p>
+                </div>
+                <div class="movie-votes">
+                    <span>⭐${movie.voteAvg}</span>
+                </div>
+            </section>
+            <p class="movie-overview">${movie.overview}</p>
+            <iframe id="ytplayer" type="text/html" width="100%" height="340px" src="https://www.youtube.com/embed/${movie.trailerPath}"></iframe>
+        </article>
+    `;
+
+    document.body.appendChild(popup)
+    document.body.style.height = '100vh';
+    document.body.style.overflowY = 'hidden';
+}
+
+function closePopup() {
+    const popup = document.querySelector('.popup');
+    popup.parentElement.removeChild(popup);
+
+    document.body.style.height = '';
+    document.body.style.overflowY = '';
+}
+
 async function handleSearchFormSubmit(event) {
     event.preventDefault();
 
     const searchQuery = searchInput.value;
 
     if (searchQuery.trim().length) {
+        moviesSearchResults.innerHTML = '';
         const searchResults = await searchMovies(searchQuery);
         displayMovies(searchResults, moviesSearchResults);
     }
@@ -81,7 +148,6 @@ function closeSearch() {
 
 function loadMoreMovies() {
     currentApiPage++;
-    loadMoreBtn.disabled = true;
     fetchMoviesNowPlaying();
 }
 

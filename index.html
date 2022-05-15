@@ -12,9 +12,9 @@
         <div class="navbar">
             <a href class="header-title">🍿 Flixster</a>
             <div class="search-wrapper">
-                <form id="search-form">
+                <form id="search-form" autocomplete="off">
                     <input type="text" id="search-input" placeholder="Search Flixster" class="search" title="Search Movies">
-                    <button type="button" id="close-search-btn" class="hidden" onclick="closeSearch()"><span class="sr-only">Close</span></button>
+                    <button type="button" id="close-search-btn" class="close-button hidden" onclick="closeSearch()"><span class="sr-only"></span></button>
                 </form>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <h2>Now Playing</h2>
             <ul id="now-playing-movies-list" class="movie-list"></ul>
             <div class="load-more-movies-action">
-                <button id="load-more-movies-btn" onclick="loadMoreMovies()">Load more movies</button>
+                <button id="load-more-movies-btn" class="hidden" onclick="loadMoreMovies()">Load more movies</button>
             </div>
         </section>
         <section id="search-section" class="section-layout hidden">

@@ -72,7 +72,7 @@ body {
     }
 }
 
-#close-search-btn {
+.close-button {
     vertical-align: middle;
     border: none;
     color: white;
@@ -84,13 +84,13 @@ body {
     cursor: pointer;
 }
 
-#close-search-btn:hover {
+.close-button:hover {
     opacity: 1;
     background: rgba(128, 128, 128, 0.5);
 }
 
-#close-search-btn::before,
-#close-search-btn::after {
+.close-button::before,
+.close-button::after {
     content: " ";
     position: absolute;
     top: 50%;
@@ -100,15 +100,13 @@ body {
     background-color: currentColor;
 }
 
-#close-search-btn::after {
+.close-button::after {
     transform: rotate(-45deg) translateX(0px);
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-#close-search-btn::before {
+.close-button::before {
     transform: translate(-50%, -50%) rotate(45deg);
-}
-#close-search-btn::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .main-layout {
@@ -191,11 +189,13 @@ body {
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgb(244, 244, 244, 0.95);
-    color: #000000;
+    padding-top: 20px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .movie-popup {
@@ -261,13 +261,18 @@ body {
     font-size: 20px;
 }
 
+#ytplayer {
+    margin-bottom: 20px;
+}
+
 #close-btn {
     position: absolute;
     top: 20px;
     right: 20px;
+    margin-right: 20px;
     background-color: black;
-    padding:  10px 20px;
-    border: none;
+    border: 1px solid white;
+    padding: 10px 20px;
     color: white;
     border-radius: 3px;
     transition: transform 100ms;
