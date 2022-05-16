@@ -84,6 +84,7 @@ async function selectMovie(id) {
 function displayMoviePopup(movie) {
     const popup = document.createElement('div');
     popup.className = 'popup';
+    popup.classList.add('fadeInBottom');
 
     const genres = movie.genres.slice(0, 3).map(genre => genre.name).join(', ');
 
@@ -116,7 +117,11 @@ function displayMoviePopup(movie) {
 
 function closePopup() {
     const popup = document.querySelector('.popup');
-    popup.parentElement.removeChild(popup);
+    popup.classList.remove('fadeInBottom');
+    popup.classList.add('fadeOutBottom');
+    setTimeout(() => {
+        popup.parentElement.removeChild(popup);
+    }, 500);
 
     document.body.style.height = '';
     document.body.style.overflowY = '';
@@ -127,7 +132,9 @@ async function handleSearchFormSubmit(event) {
 
     const searchQuery = searchInput.value;
 
-    if (searchQuery.trim().length) {
+    moviesSearchResults.innerHTML = '';
+
+    if (searchQuery.trim().length>0) {
         moviesSearchResults.innerHTML = '';
         const searchResults = await searchMovies(searchQuery);
         displayMovies(searchResults, moviesSearchResults);

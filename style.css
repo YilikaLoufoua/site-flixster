@@ -124,6 +124,9 @@ body {
 
 .section-layout {
     padding: 20px;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
 }
 
 .movie-list {
@@ -196,6 +199,8 @@ body {
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
 }
 
 .movie-popup {
@@ -206,7 +211,6 @@ body {
 .movie-popup .movie-backdrop {
     width: 100%;
     display: block;
-    opacity: 1;
 }
 
 .movie-popup .movie-details {
@@ -313,6 +317,36 @@ body {
   border: 1px solid #999999;
   background-color: #666666;
   color: white;
+}
+
+.fadeInBottom {
+    animation-name: fadeInBottom
+}
+
+@keyframes fadeInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.fadeOutBottom {
+    animation-name: fadeOutBottom
+}
+
+@keyframes fadeOutBottom {
+    from {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 0
+    }
 }
 
 /** Utility classes **/
