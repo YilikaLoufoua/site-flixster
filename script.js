@@ -7,6 +7,7 @@ var currentApiPage = 1;
 const moviesSection = document.getElementById('movies-grid');
 const nowPlayingMoviesList = document.getElementById('now-playing-movies-list');
 const loadMoreBtn = document.getElementById('load-more-movies-btn');
+const scrollToTopBtn = document.getElementById('scroll-top-top-btn');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const closeSearchBtn = document.getElementById('close-search-btn');
@@ -26,6 +27,7 @@ async function fetchMoviesNowPlaying() {
 
     displayMovies(movies, nowPlayingMoviesList);
     loadMoreBtn.classList.remove('hidden');
+    scrollToTopBtn.classList.remove('hidden');
 }
 
 function displayMovies(movies, htmlElement) {
@@ -156,6 +158,11 @@ function closeSearch() {
 function loadMoreMovies() {
     currentApiPage++;
     fetchMoviesNowPlaying();
+}
+
+function scrollToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
 function init() {
